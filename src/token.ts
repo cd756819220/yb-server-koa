@@ -1,4 +1,3 @@
-import { BaseContext } from 'koa';
 import * as jwt from 'jsonwebtoken';
 import * as util from 'util';
 

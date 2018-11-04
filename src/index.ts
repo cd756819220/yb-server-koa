@@ -1,5 +1,5 @@
-import koa from 'koa';
-const app = new koa();
+import * as Koa from 'koa';
+const app = new Koa();
 
 const md = ctx => {
   ctx.response.body = '您好！';

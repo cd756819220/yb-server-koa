@@ -26,7 +26,13 @@
   },
   "homepage": "https://github.com/yibiankeji/yb-server-koa#readme",
   "dependencies": {
-    "koa": "^2.6.1"
+    "@koa/cors": "^2.2.2",
+    "jsonwebtoken": "^8.3.0",
+    "koa": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-jwt": "^3.5.1",
+    "koa-router": "^7.4.0",
+    "path-to-regexp": "^2.4.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.46",

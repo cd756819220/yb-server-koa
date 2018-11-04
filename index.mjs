@@ -1,4 +1,4 @@
-const koa = require('koa');
+import koa from 'koa';
 const app = new koa();
 
 const md = ctx => {

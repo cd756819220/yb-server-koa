@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as util from 'util';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import docrypt from '../utils/crypt';
 import statusCode from '../utils/statusCode';
 
@@ -31,7 +31,7 @@ export default class UserController {
           } else {
             const user = await getUserByMobile(newUser.mobile);
             const { name, realName, mobile, id } = user;
-            const userInfo = { name, realName, mobile };
+            const userInfo = { id, name, realName, mobile };
             const token = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS('创建用户成功', { token, userInfo });
@@ -72,12 +72,13 @@ export default class UserController {
           }
         }
       } catch (err) {
+        console.log('ddd', err)
         ctx.response.status = 200;
-        ctx.body = statusCode.ERROR_SYSTEM('创建失败：服务器内部错误！');
+        ctx.body = statusCode.ERROR_SYSTEM('登录失败：服务器内部错误！');
       }
     } else {
       ctx.response.status = 200;
-      ctx.body = statusCode.ERROR_PARAMETER('创建失败: 参数错误');
+      ctx.body = statusCode.ERROR_PARAMETER('登录失败: 参数错误');
     }
   }
 }

@@ -18,6 +18,7 @@ app.use(koaJwt({
   if (/^\/api/.test(ctx.path)) {
     return pathToRegexp([
       '/api/user',
+      '/api/base/options',
     ]).test(ctx.path);
   }
   return true;

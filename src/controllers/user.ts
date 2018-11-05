@@ -1,4 +1,4 @@
-import User from './model';
+import { User } from '../models';
 
 export default class UserController {
   public static async getUser (ctx) {

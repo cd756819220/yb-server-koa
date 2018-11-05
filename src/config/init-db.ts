@@ -21,14 +21,4 @@ const sequelize = new Sequelize('ybkj', 'root', 'topred168', {
   pool: { max: 5, min: 0, idle: 10000 },
 });
 
-const User = sequelize.import('./User.ts');
-// sequelize.sync();
-sequelize.sync().then(async () => {
-  User.create({
-    name: '陈天文',
-    mobile: '18911681488',
-    password: '123456',
-    role: 2,
-  });
-});
-export default User;
+export default sequelize;

@@ -5,7 +5,7 @@ import * as cors from '@koa/cors';
 import * as pathToRegexp from 'path-to-regexp';
 
 import { router } from './routes';
-import { token } from './token';
+import { token } from './middlewares/token';
 
 const app = new Koa();
 
@@ -25,3 +25,5 @@ app.use(koaJwt({
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(8000);
+
+console.log('server start at http://localhost:8000/');

@@ -10,8 +10,8 @@ const verify = util.promisify(jwt.verify);
 
 export default class UserController {
   public static async register (ctx) {
-    const user = ctx.request.body;
-    const { mobile, password } = user;
+    const reqData = ctx.request.body;
+    const { mobile, password } = reqData;
 
     if (mobile && password) {
       try {
@@ -20,14 +20,21 @@ export default class UserController {
           ctx.response.status = 200;
           ctx.body = statusCode.ERROR_EXISTED('用户已经存在');
         } else {
-          user.password = docrypt(password);
-          const res = await createUser(user);
-          if (!res) {
+          reqData.password = docrypt(password);
+          if (!reqData.hasOwnProperty('role')) { // 如果没有传入role，则默认为游客，后期管理员可以改变角色
+            reqData.role = 4;
+          }
+          const newUser = await createUser(reqData);
+          if (!newUser) {
             ctx.response.status = 200;
             ctx.body = statusCode.ERROR_SQL('创建失败: 访问数据库异常！');
           } else {
+            const user = await getUserByMobile(newUser.mobile);
+            const { name, realName, mobile, id } = user;
+            const userInfo = { name, realName, mobile };
+            const token = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
             ctx.response.status = 200;
-            ctx.body = statusCode.SUCCESS('创建用户成功', null);
+            ctx.body = statusCode.SUCCESS('创建用户成功', { token, userInfo });
           }
         }
       } catch (err) {
@@ -41,8 +48,8 @@ export default class UserController {
   }
 
   public static async login (ctx) {
-    const user = ctx.request.body;
-    const { mobile, password } = user;
+    const reqData = ctx.request.body;
+    const { mobile, password } = reqData;
 
     if (mobile && password) {
       try {

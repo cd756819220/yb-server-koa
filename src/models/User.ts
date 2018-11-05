@@ -17,7 +17,7 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
     allowNull: true,
     comment: '昵称',
   },
-  realname: {
+  realName: {
     type: DataTypes.STRING(12),
     allowNull: true,
     comment: '真实姓名',

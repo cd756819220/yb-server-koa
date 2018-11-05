@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 
 const docrypt = (value) => {
   const salt = bcrypt.genSaltSync();

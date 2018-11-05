@@ -24,6 +24,10 @@ const statusCode = {
     code: 401,
     msg,
   }),
+  ERROR_LOGIN: msg => ({ // 登录失败
+    code: -1,
+    msg,
+  }),
 };
 
 export default statusCode;

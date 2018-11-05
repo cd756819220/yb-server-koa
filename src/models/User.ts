@@ -1,3 +1,4 @@
+import * as Sequelize from 'sequelize';
 const User = (sequelize, DataTypes) => sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER(8),
@@ -51,6 +52,18 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
     type: DataTypes.STRING(40),
     allowNull: true,
     comment: '住址',
+  },
+  createdAt: {
+    type: DataTypes.DATE,   
+    defaultValue: Sequelize.NOW,
+    field: 'created_at',
+    allowNull: false,
+  }, 
+  updatedAt: { 
+    type: DataTypes.DATE,
+    defaultValue: Sequelize.NOW, 
+    field: 'created_at',      
+    allowNull: false,
   },
 },
 {

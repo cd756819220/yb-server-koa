@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as util from 'util';
+import statusCode from '../utils/statusCode';
 
 const verify = util.promisify(jwt.verify);
 
@@ -17,17 +18,17 @@ const token = () => async (ctx, next) => {
         };
       } catch (err) {
         err.status = 200;
-        ctx.body = '权限认证失败，请重新登录！';
+        ctx.body = statusCode.ERROR_AUTH('权限认证失败: 请重新登录！');
       }
     }
     await next();
   } catch (err) {
     if (err.status === 401) {
-      ctx.status = 401;
-      ctx.body = '权限认证失败，请重新登录！';
+      ctx.status = 200;
+      ctx.body = statusCode.ERROR_AUTH('权限认证失败: 请重新登录！');
     } else {
-      err.status = 404;
-      ctx.body = '权限认证失败，请重新登录！';
+      err.status = 200;
+      ctx.body = statusCode.ERROR_AUTH('权限认证失败: 请重新登录！');
     }
   }
 };

@@ -4,7 +4,7 @@ import baseController from '../controllers/base';
 
 const router = new Router();
 
-router.get('/api/user', userController.getUser);
+router.post('/api/user/register', userController.register);
 router.get('/api/base/options', baseController.getOptions);
 
 export { router };

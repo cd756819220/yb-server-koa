@@ -33,3 +33,24 @@
   curl -H "Content-Type:application/json" -X POST -d '{"username":"18911681482", "password":"123456"}' http://localhost:8000/api/user/login
   // 若未创建，返回用户不存在即说明成功
   ```
+
+### 各目录及文件功能
+- ├── README.md 介绍项目的有关情况
+- ├── assets  放项目的静态资源
+- │   └── uploads 这里放的用户上传的头像图片
+- ├── launch.json vscode编辑结合ts配置文件
+- ├── node_modules 项目用到第三方依赖
+- ├── nodemon.json 自动监测代码变化而不需重启的工具nodemon的配置文件。
+- ├── package-lock.json npm借鉴yarn而在npm 5引入的锁定依赖版本的配置文件
+- ├── package.json 项目有关依赖、运行脚本
+- ├── src 项目我们实际写主要的代码
+- │   ├── app.ts 入口文件，启动服务器、监听端口，引入各种中间件
+- │   ├── config 项目的数据库等得配置文件
+- │   ├── controllers 控制器，对各种请求进行处理，面向逻辑
+- │   ├── middlewares 中间件，本地我们自己写得完善整个项目的功能
+- │   ├── models 定义各种数据的表格，定义数据
+- │   ├── routes 各种url对应的路由，于控制器的处理函数一一对应
+- │   ├── services 定义各种操作数据库的方法，操作数据
+- │   └── utils 定义各种工具函数
+- ├── tsconfig.json ts的配置文件，包括作用的代码块，转为js输出路径等
+- └── tslint.json ts的格式校验配置，各种规则

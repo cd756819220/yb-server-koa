@@ -1,24 +1,35 @@
 ## yb-server-koa
 
+### 项目背景
+出于技术提升的需要，使用最近的js主流技术去开发前后端分离的web系统，本项目主要实现登录注册、修改密码，上传头像和修改用户基本信息的功能，没有具体的业务应用场景，主要用来学习掌握最基础的node开发知识！
+
 ### 技术架构
-JavaScript 只是一个脚本语言，并非设计用于开发大型 Web 应用，JavaScript 没有提供类和模块的概念，而 TypeScript 扩展了 JavaScript 实现了这些特性。
+前后端分离，基于JS的超集TS开发，没有选用大而全360的thinkjs或阿里的egg, 而是基于它们底层都使用的web开发框框架koa, 同时使用sequelize作为ORM操作mysql数据库, 使用koa-jwt进行token校验，使用koa-body实现图片上传等。
 
-TypeScript 是 JavaScript 的超集，扩展了 JavaScript 的语法，因此现有的 JavaScript 代码可与 TypeScript 一起工作无需任何修改，TypeScript 通过类型注解提供编译时的静态类型检查。
+核心库当前版本为：typescript 3.1.x, node v10.13.0, koa 2.6.x, sequelize 4.41.x, koa-jwt 3.5.x, koa-body 4.0.x等。
 
-TypeScript的设计解决了JavaScript的“痛点”：弱类型和没有命名空间；这导致程序很难模块化，不适合开发大型程序。
-
- 初始创建须知
- 1.GitHub账号创建（此步可不操作）
- 2.打开Terminal终端下载源码（来自GitHub）
- ```
- mkdir course  //创建一个名为couse的目录
- cd course    //进入course目录
- git clone https://github.com/yibiankeji/yb-server-koa.git   //下载源码
- npm install  //更新依赖
- mysql -u root -p   //进入数据库，需输密码
- create database ybkj;    //创建数据库
- exit  //退出数据库
- npm start  //启动KOA
- ```
-打开浏览器输入    http://localhost:8000/api/user
-反馈数据即为成功
+### 参与学习或开发
+- 下载源码
+  ```
+  git clone https://github.com/yibiankeji/yb-server-koa.git   
+  ```
+- 安装项目有关依赖
+  ```
+  cd yb-server-koa &&  npm install 
+  ```
+- 安装mysql数据库并创建ybkj数据库
+  ```
+  brew install mysql (具体安装上网搜)
+  mysql -u root -p   //进入数据库，需输密码
+  create database ybkj;    //创建数据库
+  exit  //退出数据库
+  ```
+- 启动项目
+  ```
+  npm start  
+  ```
+- 测试服务
+  ```
+  curl -H "Content-Type:application/json" -X POST -d '{"username":"18911681482", "password":"123456"}' http://localhost:8000/api/user/login
+  // 若未创建，返回用户不存在即说明成功
+  ```

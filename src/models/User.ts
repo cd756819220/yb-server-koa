@@ -1,4 +1,5 @@
 import * as Sequelize from 'sequelize';
+
 const User = (sequelize, DataTypes) => sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER(8),

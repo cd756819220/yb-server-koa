@@ -19,6 +19,7 @@ app.use(koaJwt({
   secret: 'jwtSecret',
 }).unless((ctx) => {
   if (/^\/api/.test(ctx.path)) {
+    // 只要不需要token, 写到下面
     return pathToRegexp([
       '/assets',
       '/api/user/login',

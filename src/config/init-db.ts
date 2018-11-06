@@ -17,7 +17,7 @@ const sequelize = new Sequelize('ybkj', 'root', 'topred168', {
     },
     timestamps: true,
   },
-  sync: { force: true },
+  sync: { force: false },
   pool: { max: 5, min: 0, idle: 10000 },
 });
 

@@ -4,11 +4,46 @@ import * as bcrypt from 'bcryptjs';
 import docrypt from '../utils/crypt';
 import statusCode from '../utils/statusCode';
 
-import {   createUser, getUserByMobile, } from '../services/UserService';
+import { updateUserById, getUserById, createUser, getUserByMobile } from '../services/UserService';
 
 const verify = util.promisify(jwt.verify);
 
 export default class UserController {
+  public static async updateUserById (ctx) {
+    const { id } = ctx.params;
+    const reqData = ctx.request.body;
+    if (!id) {
+      ctx.response.status = 200;
+      ctx.body = statusCode.ERROR_PARAMETER('更新失败: 参数错误');
+    } else {
+      try {
+        await updateUserById(id, reqData);
+        ctx.response.status = 200;
+        ctx.body = statusCode.SUCCESS('更新成功', null);
+      } catch (err) {
+        ctx.response.status = 200;
+        ctx.body = statusCode.ERROR_SYSTEM('更新失败：服务器内部错误！');
+      }
+    }
+  }
+
+  public static async getUserById (ctx) {
+    const { id } = ctx.params;
+    if (!id) {
+      ctx.response.status = 200;
+      ctx.body = statusCode.ERROR_PARAMETER('查询失败: 参数错误');
+    } else {
+      try {
+        const user = await getUserById(id);
+        ctx.response.status = 200;
+        ctx.body = statusCode.SUCCESS('查询成功', user);
+      } catch (err) {
+        ctx.response.status = 200;
+        ctx.body = statusCode.ERROR_SYSTEM('查询失败：服务器内部错误！');
+      }
+    }
+  }
+
   public static async register (ctx) {
     const reqData = ctx.request.body;
     const { mobile, password } = reqData;

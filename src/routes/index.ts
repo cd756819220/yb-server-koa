@@ -6,6 +6,9 @@ const router = new Router();
 
 router.post('/api/user/login', userController.login);
 router.post('/api/user/register', userController.register);
+router.get('/api/user/:id', userController.getUserById);
+router.put('/api/user/:id', userController.updateUserById);
+
 router.get('/api/base/options', baseController.getOptions);
 
 export { router };

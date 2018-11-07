@@ -11,6 +11,7 @@ router.post('/api/user/login', userController.login);
 router.post('/api/user/register', userController.register);
 router.get('/api/user/:id', userController.getUserById);
 router.put('/api/user/:id', userController.updateUserById);
+router.put('/api/user/:id/password', userController.updateUserPassword);
 
 router.get('/api/base/options', baseController.getOptions);
 router.post('/api/base/upload', KoaBody({

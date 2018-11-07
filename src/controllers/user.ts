@@ -4,7 +4,7 @@ import * as bcrypt from 'bcryptjs';
 import docrypt from '../utils/crypt';
 import statusCode from '../utils/statusCode';
 
-import { updateUserById, getUserById, createUser, getUserByMobile } from '../services/UserService';
+import { updateUserById, getUserById, createUser, getUserByMobile, updateUserPassword } from '../services/UserService';
 
 const verify = util.promisify(jwt.verify);
 
@@ -114,6 +114,36 @@ export default class UserController {
     } else {
       ctx.response.status = 200;
       ctx.body = statusCode.ERROR_PARAMETER('登录失败: 参数错误');
+    }
+  }
+  
+  public static async updateUserPassword (ctx) {
+    const token = ctx.header.authorization;
+    const data = ctx.request.body;
+    const { id } = ctx.params;
+
+    if (id) {
+      try {
+        const payload = await verify(token.split(' ')[1], 'jwtSecret');
+        const user = await getUserByMobile(payload.mobile);
+        if (bcrypt.compareSync(data.oldPassword, user.password)) {
+          const salt = bcrypt.genSaltSync();
+          const password = bcrypt.hashSync(data.password, salt);
+          // 只更新密码时不传手机号码, 和修改手机号复用了
+          await updateUserPassword(id, password);
+          ctx.response.status = 200;
+          ctx.body = statusCode.SUCCESS('修改成功', { token, password });
+        } else {
+          ctx.response.status = 200;
+          ctx.body = statusCode.ERROR_PARAMETER('原密码错误，请重新输入！');
+        }
+      } catch (err) {
+        ctx.response.status = 200;
+        ctx.body = statusCode.ERROR_SYSTEM('修改失败，服务器内部错误！');
+      }
+    } else {
+      ctx.response.status = 200;
+      ctx.body = statusCode.ERROR_PARAMETER('有信息为空，请输入！');
     }
   }
 }

@@ -16,7 +16,10 @@ const updateUserById = async (id, user) => User.update(
   user,
   { where: { id } },
 );
-
+const updateUserPassword = async (id, password) => User.update(
+  { password },
+  { where: { id }, fields: ['password'] },
+);
 export {
   createUser,
   getUserByMobile,
@@ -24,4 +27,5 @@ export {
   getAllUser,
   getAndCountAllUser,
   updateUserById,
+  updateUserPassword,
 };

@@ -12,11 +12,11 @@ const getAndCountAllUser = async params => User.findAndCountAll({
   offset: params.offset,
   limit: params.limit,
 });
-const updateUserById = async (id, user) => User.update(
+const updateUserById = async (id: number, user: object) => User.update(
   user,
   { where: { id } },
 );
-const updateUserPassword = async (id, password) => User.update(
+const updateUserPassword = async (id: number, password: string) => User.update(
   { password },
   { where: { id }, fields: ['password'] },
 );

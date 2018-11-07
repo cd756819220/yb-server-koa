@@ -11,7 +11,7 @@ const verify = util.promisify(jwt.verify);
 export default class UserController {
   public static async updateUserById (ctx) {
     const { id } = ctx.params;
-    const reqData = ctx.request.body;
+    const reqData: object = ctx.request.body;
     if (!id) {
       ctx.response.status = 200;
       ctx.body = statusCode.ERROR_PARAMETER('更新失败: 参数错误');
@@ -66,7 +66,7 @@ export default class UserController {
           } else {
             const user = await getUserByMobile(newUser.mobile);
             const { name, realName, mobile, id } = user;
-            const userInfo = { id, name, realName, mobile };
+            const userInfo: object = { id, name, realName, mobile };
             const token = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS('创建用户成功', { token, userInfo });
@@ -95,8 +95,8 @@ export default class UserController {
         } else {
           const { id, name, role, profilePhoto, birthday, sex, address } = existUser;
           if (bcrypt.compareSync(password, existUser.password)) {
-            const token = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
-            const userInfo = {
+            const token: string = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
+            const userInfo: object = {
               id, name, mobile, role, profilePhoto, birthday, sex, address,
             };
             ctx.response.status = 200;
@@ -132,7 +132,7 @@ export default class UserController {
           // 只更新密码时不传手机号码, 和修改手机号复用了
           await updateUserPassword(id, password);
           ctx.response.status = 200;
-          ctx.body = statusCode.SUCCESS('修改成功', { token, password });
+          ctx.body = statusCode.SUCCESS('修改成功', null);
         } else {
           ctx.response.status = 200;
           ctx.body = statusCode.ERROR_PARAMETER('原密码错误，请重新输入！');

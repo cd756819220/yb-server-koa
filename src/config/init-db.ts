@@ -6,7 +6,7 @@ const sequelize = new Sequelize('ybkj', 'root', 'topred168', {
   dialectOptions: {
     socketPath: '/tmp/mysql.sock',
   },
-  logging: true,
+  logging: false,
   operatorsAliases: false,
   define: {
     underscored: false,

@@ -1,5 +1,5 @@
 const statusCode = {
-  SUCCESS: (msg: string, data: object) => ({
+  SUCCESS: (msg: string, data?: any) => ({
     code: 0,
     msg,
     data,

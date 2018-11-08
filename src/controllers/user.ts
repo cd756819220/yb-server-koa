@@ -19,7 +19,7 @@ export default class UserController {
       try {
         await updateUserById(id, reqData);
         ctx.response.status = 200;
-        ctx.body = statusCode.SUCCESS('更新成功', null);
+        ctx.body = statusCode.SUCCESS('更新成功');
       } catch (err) {
         ctx.response.status = 200;
         ctx.body = statusCode.ERROR_SYSTEM('更新失败：服务器内部错误！');
@@ -107,7 +107,6 @@ export default class UserController {
           }
         }
       } catch (err) {
-        console.log('ddd', err)
         ctx.response.status = 200;
         ctx.body = statusCode.ERROR_SYSTEM('登录失败：服务器内部错误！');
       }
@@ -132,7 +131,7 @@ export default class UserController {
           // 只更新密码时不传手机号码, 和修改手机号复用了
           await updateUserPassword(id, password);
           ctx.response.status = 200;
-          ctx.body = statusCode.SUCCESS('修改成功', null);
+          ctx.body = statusCode.SUCCESS('修改成功');
         } else {
           ctx.response.status = 200;
           ctx.body = statusCode.ERROR_PARAMETER('原密码错误，请重新输入！');

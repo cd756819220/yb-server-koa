@@ -16,7 +16,6 @@ export default class BaseController {
       // 可读流通过管道写入可写流
       reader.pipe(upStream);
       fs.unlinkSync(file.path);
-    
       const fileUrl = `http://localhost:8000/assets/uploads/${file.name}`;
       ctx.body = statusCode.SUCCESS('上传成功！', fileUrl);
     } catch (err) {

@@ -65,8 +65,10 @@ export default class UserController {
             ctx.body = statusCode.ERROR_SQL('创建失败: 访问数据库异常！');
           } else {
             const user = await getUserByMobile(newUser.mobile);
-            const { name, realName, mobile, id } = user;
-            const userInfo: object = { id, name, realName, mobile };
+            const { id, name, mobile, role, profilePhoto, birthday, sex, address, } = user;
+            const userInfo: object = {
+              id, name, mobile, role, profilePhoto, birthday, sex, address,
+            };
             const token = jwt.sign({ mobile, id }, 'jwtSecret', { expiresIn: '24h' });
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS('创建用户成功', { token, userInfo });

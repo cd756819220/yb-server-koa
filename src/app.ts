@@ -1,7 +1,9 @@
 import * as Koa from 'koa';
+import * as json from 'koa-json';
 import * as koaJwt from 'koa-jwt';
 import * as KoaStatic from 'koa-static2';
 import * as bodyParser from 'koa-bodyparser';
+import * as logger from 'koa-logger';
 import * as cors from '@koa/cors';
 import * as path from 'path';
 import * as pathToRegexp from 'path-to-regexp';
@@ -14,6 +16,9 @@ const app = new Koa();
 app.use(token());
 app.use(cors());
 app.use(bodyParser());
+app.use(json());
+app.use(logger());
+
 app.use(KoaStatic('assets', path.resolve(__dirname, '../assets')));
 app.use(koaJwt({
   secret: 'jwtSecret',
@@ -29,6 +34,14 @@ app.use(koaJwt({
   }
   return true;
 }));
+
+app.use(async (ctx, next) => {
+  const start: any = new Date();
+  await next();
+  const end: any = new Date();
+  const ms: any = end - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+});
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(8000);

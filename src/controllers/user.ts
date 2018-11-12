@@ -128,8 +128,7 @@ export default class UserController {
         const payload = await verify(token.split(' ')[1], 'jwtSecret');
         const user = await getUserByMobile(payload.mobile);
         if (bcrypt.compareSync(data.oldPassword, user.password)) {
-          const salt = bcrypt.genSaltSync();
-          const password = bcrypt.hashSync(data.password, salt);
+          const password = docrypt(data.password);
           // 只更新密码时不传手机号码, 和修改手机号复用了
           await updateUserPassword(id, password);
           ctx.response.status = 200;

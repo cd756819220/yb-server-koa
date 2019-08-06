@@ -2,24 +2,26 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Node调试",
-      "runtimeExecutable": "nodemon",
-      "program": "${workspaceFolder}/dist/server.js",
-      "restart": true,
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/dist/server.js",
-      "preLaunchTask": "npm: build",
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ]
+        "type": "node",
+        "request": "launch",
+        "name": "Koa Program",
+        "runtimeArgs": [
+            "--nolazy",
+            "-r",
+            "ts-node/register",
+        ],
+        "args": [
+            "${workspaceFolder}/src/app.ts"
+        ],
+        "env": {
+            "DEBUG": "yuedun:*,-not_this",
+            "NODE_ENV": "development"
+        },
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}",
+        "protocol": "inspector",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
     }
   ]
 }

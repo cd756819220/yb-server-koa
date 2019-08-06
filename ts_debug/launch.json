@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Koa Program",
+        "runtimeArgs": [
+            "--nolazy",
+            "-r",
+            "ts-node/register",
+        ],
+        "args": [
+            "${workspaceFolder}/src/app.ts"
+        ],
+        "env": {
+            "DEBUG": "yuedun:*,-not_this",
+            "NODE_ENV": "development"
+        },
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}",
+        "protocol": "inspector",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
